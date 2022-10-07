@@ -7,7 +7,7 @@
 #
 # ==============================================================================
 
-# Default path to recursively search for backup.ini files.
+# Default path to recursively search for backup.cfg files.
 SOURCE_PATH="/srv/www/"
 
 # Optional extra pamaters (e.g. "--extended-insert=false") to be passed to
@@ -55,13 +55,13 @@ while getopts "p:" ARGUMENTS; do
 done
 
 output "Backup script version ${BACKUP_SCRIPT_VERSION} on host ${HOSTNAME_LONG}, PID: ${PROCESS}"
-output "Searching for backup.ini files in ${SOURCE_PATH}"
+output "Searching for backup.cfg files in ${SOURCE_PATH}"
 
-# search for backup.ini files
-CONFIGURATION_FILES=$(find "${SOURCE_PATH}" -name "backup.ini" -type f)
+# search for backup.cfg files
+CONFIGURATION_FILES=$(find "${SOURCE_PATH}" -name "backup.cfg" -type f)
 
 if [ "${CONFIGURATION_FILES}" = "" ]; then
-	output "No backup.ini files found"
+	output "No backup.cfg files found"
 	exit 0
 fi
 
@@ -69,7 +69,7 @@ CONTINUE="false"
 for CONFIGURATION_FILE in ${CONFIGURATION_FILES}; do
 
 	if [ -r "${CONFIGURATION_FILE}" ]; then
-		output "Found backup.ini file: ${CONFIGURATION_FILE}"
+		output "Found backup.cfg file: ${CONFIGURATION_FILE}"
 		BACKUP_CONFIGURATION=$(cat "${CONFIGURATION_FILE}")
 		VALID_FILE=$(echo -e "${BACKUP_CONFIGURATION}" | head -3 | egrep '^# ID:schams-net/backups$')
 		if [ "${VALID_FILE}" = "" ]; then
@@ -507,7 +507,7 @@ for CONFIGURATION_FILE in ${CONFIGURATION_FILES}; do
 		fi
 
 	else
-		output "[WARNING] Ignoring backup.ini file ${BACKUP_CONFIGURATION_FILE} (not readable)"
+		output "[WARNING] Ignoring backup.cfg file ${BACKUP_CONFIGURATION_FILE} (not readable)"
 		let WARNINGS=WARNINGS+1
 	fi
 done
