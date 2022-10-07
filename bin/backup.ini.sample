@@ -1,0 +1,166 @@
+# Backups Configuration File
+# ID:schams-net/backups
+
+domain = example.com
+user = username
+email = postmaster@example.com
+
+# ==============================================================================
+# Backup file system
+# ==============================================================================
+
+# filesystem.backup.enabled: true|false
+# This configuration option enables or disables backups of the local filesystem.
+
+filesystem.backup.enabled = true
+
+# filesystem.base.directory: full path in local file system
+# If local filesystem backups are enabled, this configuration option specifies
+# the full path in local file system (this is typically an absolute path).
+# Keywords, automatically replaced: {DOMAIN}, {DATE} and {USER}.
+
+filesystem.base.directory = /srv/www/{DOMAIN}
+
+# include.directory = relative path in local file system
+# Directories to be included in the filesystem backup, relative to
+# "filesystem.base.directory".
+# Keywords, automatically replaced: {DOMAIN}, {DATE} and {USER}.
+
+include.directory = etc
+include.directory = htdocs
+#include.directory = {USER}
+#include.directory = {DOMAIN}
+include.directory = log
+
+# Directories containing this file are excluded from file system backup
+exclude.directories.containing.file = .directory-excluded-from-backup
+
+# Follow symlinks; archive and dump the files they point to.
+tar.follow.symlinks = false
+
+# ==============================================================================
+# Backup database
+# ==============================================================================
+
+# database.backup.enabled: true|false
+# This configuration option enables or disables backups of database.
+
+database.backup.enabled = true
+
+#database.host = localhost
+#database.user = {USER}
+#database.password = secret
+#database.name = mydatabase
+
+database.user = {USER}
+database.password = mysecretpassword
+database.name = {USER}
+
+# local.destination.directory: full path in local file system
+# If local filesystem backups and/or database backups are enabled, this
+# configuration option specifies the full path in the local file system where
+# backup files should be stored (this is typically an absolute path).
+# Keywords, automatically replaced: {DOMAIN}, {DATE} and {USER}.
+
+local.destination.directory = /backup/{DOMAIN}/{DATE}/
+
+# local.destination.filename.prefix: [...]
+# NOT IMPLEMENTED
+
+# ==============================================================================
+# Delete old local backups
+# ==============================================================================
+
+# cleanup.local.enabled: true|false
+# This configuration option enables or disables the feature to delete old local
+# backups (clean up).
+
+cleanup.local.enabled = true
+
+# cleanup.continue_on_errors: true|false
+# Deleting old backups (cleanup) can be dangerous, if nobody realises that
+# creating backups have failed for several days. In this case, there is a
+# risk, that all backups are deleted at one point.
+
+cleanup.continue_on_errors = false
+
+# cleanup.local_directory: full path in local file system
+# Valid "date" directories (YYYMMDD) are expected in this directory.
+# For example: if backups are stored as /backup/test/20170323/1.example.com.tar.gz
+# the cleanup.local_directory would be: /backup/test/
+
+cleanup.local_directory = /backup/{DOMAIN}/
+
+# cleanup.local.keep_x_days: numeric value
+# Backups, older than x days, will be deleted from the local file system.
+# This requires a valid "date" directory name (e.g. "20170323") under
+# "cleanup.local_directory", see above.
+
+cleanup.local.keep_x_days = 3
+
+# ==============================================================================
+# Synchronize Backups to AWS S3
+# ==============================================================================
+
+# remote.aws.enabled = true|false
+# This configuration option enables or disables the feature to synchronise the
+# backup directory with an Amazon S3 bucket.
+
+remote.aws.enabled = true
+
+# AWS configuration. Some of the settings below are likely optional, depending
+# on your individual system setup. If they are not configured here (e.g.
+# commented out), the AWS CLI's default configuration of user "root" is used,
+# see /root/.aws/config
+
+#remote.aws.profile = backups
+remote.aws.output = text
+remote.aws.region = us-east-1
+#remote.aws.delete = false
+#remote.aws.dryrun = true
+
+# remote.aws.local_directory = full path in local file system
+# This is typically the same as "cleanup.local_directory", because
+# this is the directory that should be synchronised with the
+# resources in the AWS S3 bucket.
+
+remote.aws.local_directory = /backup/{DOMAIN}/
+
+# remote.aws.s3_bucket = <bucket name>
+# AWS S3 bucket name.
+# Keywords, automatically replaced: {DOMAIN}, {DATE} and {USER}.
+
+remote.aws.s3_bucket = bucketname.example.com
+
+# remote.aws.s3_path = path
+# This configuration option specifies which path should be used to store the
+# backups in the S3 bucket (also known as the "key prefix").
+# Keywords, automatically replaced: {DOMAIN}, {DATE} and {USER}.
+
+remote.aws.s3_path = {DOMAIN}
+
+# remote.aws.s3_storage_class = <storage class>
+# The configuration sets the type of storage to use for the objects in S3.
+# Valid values are: STANDARD, REDUCED_REDUNDANCY, STANDARD_IA, ONEZONE_IA,
+# INTELLIGENT_TIERING, GLACIER, or DEEP_ARCHIVE. The default is not to set
+# any specific storage class but use the bucket configuration.
+
+#remote.aws.s3_storage_class = STANDARD_IA
+
+# remote.aws.cleanup.keep_x_days = numeric value
+# Backups, older than x days, will be deleted from the AWS S3 bucket.
+# This requires a valid "date" directory name (e.g. "20170323") under
+# "remote.aws.local_directory", see above.
+#
+# Set this to "0" (zero) to disable this feature.
+
+remote.aws.cleanup.keep_x_days = 14
+
+# remote.aws.cleanup.continue_on_errors: true|false
+# Deleting old backups (cleanup) can be dangerous, if nobody realises that
+# creating backups have failed for several days. In this case, there is a
+# risk, that all backups are deleted at one point.
+
+remote.aws.cleanup.continue_on_errors = false
+
+# End of file
