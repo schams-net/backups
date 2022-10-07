@@ -17,14 +17,14 @@ filesystem.backup.enabled = true
 # filesystem.base.directory: full path in local file system
 # If local filesystem backups are enabled, this configuration option specifies
 # the full path in local file system (this is typically an absolute path).
-# Keywords, automatically replaced: {DOMAIN}, {DATE} and {USER}.
+# Keywords, automatically replaced: {HOSTNAME}, {DOMAIN}, {DATE} and {USER}.
 
 filesystem.base.directory = /srv/www/{DOMAIN}
 
 # include.directory = relative path in local file system
 # Directories to be included in the filesystem backup, relative to
 # "filesystem.base.directory".
-# Keywords, automatically replaced: {DOMAIN}, {DATE} and {USER}.
+# Keywords, automatically replaced: {HOSTNAME}, {DOMAIN}, {DATE} and {USER}.
 
 include.directory = etc
 include.directory = htdocs
@@ -60,7 +60,7 @@ database.name = {USER}
 # If local filesystem backups and/or database backups are enabled, this
 # configuration option specifies the full path in the local file system where
 # backup files should be stored (this is typically an absolute path).
-# Keywords, automatically replaced: {DOMAIN}, {DATE} and {USER}.
+# Keywords, automatically replaced: {HOSTNAME}, {DOMAIN}, {DATE} and {USER}.
 
 local.destination.directory = /backups/{DOMAIN}/{DATE}/
 
@@ -88,6 +88,7 @@ cleanup.continue_on_errors = false
 # Valid "date" directories (YYYMMDD) are expected in this directory.
 # For example: if backups are stored as /backups/test/20170323/1.example.com.tar.gz
 # the cleanup.local_directory would be: /backups/test/
+# Keywords, automatically replaced: {HOSTNAME}, {DOMAIN}, {DATE} and {USER}.
 
 cleanup.local_directory = /backups/{DOMAIN}/
 
@@ -123,19 +124,20 @@ remote.aws.region = us-east-1
 # This is typically the same as "cleanup.local_directory", because
 # this is the directory that should be synchronised with the
 # resources in the AWS S3 bucket.
+# Keywords, automatically replaced: {HOSTNAME}, {DOMAIN}, {DATE} and {USER}.
 
 remote.aws.local_directory = /backups/{DOMAIN}/
 
 # remote.aws.s3_bucket = <bucket name>
 # AWS S3 bucket name.
-# Keywords, automatically replaced: {DOMAIN}, {DATE} and {USER}.
+# Keywords, automatically replaced: {HOSTNAME}, {DOMAIN}, {DATE} and {USER}.
 
 remote.aws.s3_bucket = bucketname.example.com
 
 # remote.aws.s3_path = path
 # This configuration option specifies which path should be used to store the
 # backups in the S3 bucket (also known as the "key prefix").
-# Keywords, automatically replaced: {DOMAIN}, {DATE} and {USER}.
+# Keywords, automatically replaced: {HOSTNAME}, {DOMAIN}, {DATE} and {USER}.
 
 remote.aws.s3_path = {DOMAIN}
 
