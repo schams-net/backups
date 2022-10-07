@@ -62,7 +62,7 @@ database.name = {USER}
 # backup files should be stored (this is typically an absolute path).
 # Keywords, automatically replaced: {DOMAIN}, {DATE} and {USER}.
 
-local.destination.directory = /backup/{DOMAIN}/{DATE}/
+local.destination.directory = /backups/{DOMAIN}/{DATE}/
 
 # local.destination.filename.prefix: [...]
 # NOT IMPLEMENTED
@@ -86,10 +86,10 @@ cleanup.continue_on_errors = false
 
 # cleanup.local_directory: full path in local file system
 # Valid "date" directories (YYYMMDD) are expected in this directory.
-# For example: if backups are stored as /backup/test/20170323/1.example.com.tar.gz
-# the cleanup.local_directory would be: /backup/test/
+# For example: if backups are stored as /backups/test/20170323/1.example.com.tar.gz
+# the cleanup.local_directory would be: /backups/test/
 
-cleanup.local_directory = /backup/{DOMAIN}/
+cleanup.local_directory = /backups/{DOMAIN}/
 
 # cleanup.local.keep_x_days: numeric value
 # Backups, older than x days, will be deleted from the local file system.
@@ -124,7 +124,7 @@ remote.aws.region = us-east-1
 # this is the directory that should be synchronised with the
 # resources in the AWS S3 bucket.
 
-remote.aws.local_directory = /backup/{DOMAIN}/
+remote.aws.local_directory = /backups/{DOMAIN}/
 
 # remote.aws.s3_bucket = <bucket name>
 # AWS S3 bucket name.
