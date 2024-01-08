@@ -12,7 +12,7 @@ SOURCE_PATH="/srv/www/"
 
 # Optional extra pamaters (e.g. "--extended-insert=false") to be passed to
 # the MySQL/MariaDB client.
-MYSQL_PARAMETERS="--single-transaction --no-tablespaces"
+MYSQL_PARAMETERS="--single-transaction --no-tablespaces --complete-insert"
 
 # ------------------------------------------------------------------------------
 
