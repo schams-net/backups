@@ -1,7 +1,7 @@
 #!/bin/bash
 # ==============================================================================
-# Backup Script v1.0.0
-# (c)2022 by Michael Schams | https://schams.net
+# Backup Script v1.0.1
+# (c)2022-2024 by Michael Schams | https://schams.net
 #
 # https://github.com/schams-net/backups
 #
@@ -29,7 +29,7 @@ convertsecs(){
 }
 
 TIMER_START=$(date +"%s")
-BACKUP_SCRIPT_VERSION="1.0.0"
+BACKUP_SCRIPT_VERSION="1.0.1"
 PATH=$PATH:/usr/local/bin
 AWS_CLI=$(which aws)
 HOSTNAME_SHORT=$(hostname --short)
